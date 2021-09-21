@@ -6,12 +6,16 @@ import SignUp from "./src/screens/SignUp";
 
 import { Provider } from "./src/context/authContext";
 
+import { SafeAreaProvider } from "react-native-safe-area-context";
+
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{ headerShown: false }}
+      >
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
       </Stack.Navigator>
@@ -22,7 +26,9 @@ const App = () => {
 export default () => {
   return (
     <Provider>
-      <App />
+      <SafeAreaProvider>
+        <App />
+      </SafeAreaProvider>
     </Provider>
   );
 };
