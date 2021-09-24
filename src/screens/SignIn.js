@@ -1,5 +1,11 @@
 import React, { useState, useContext } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, Text, TextInput } from "react-native-paper";
 import { Context } from "../context/authContext";
@@ -15,27 +21,34 @@ const SignIn = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(true);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.login}>Login</Text>
+    <TouchableWithoutFeedback
+      touchSoundDisabled
+      onPress={() => Keyboard.dismiss()}
+    >
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.login}>Login</Text>
 
-      <EmailInput value={email} setValue={setEmail} />
-      <PasswordInput
-        value={password}
-        setValue={setPassword}
-        showPassword={showPassword}
-        setShowPassword={setShowPassword}
-      />
+        <EmailInput value={email} setValue={setEmail} />
+        <PasswordInput
+          value={password}
+          setValue={setPassword}
+          showPassword={showPassword}
+          setShowPassword={setShowPassword}
+        />
 
-      <Button mode="contained" style={styles.loginButton}>
-        Login
-      </Button>
-      <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-        <Text>
-          Não tem uma conta?{" "}
-          <Text style={styles.createAccountText}>Crie uma</Text>
-        </Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+        <Button mode="contained" style={styles.loginButton}>
+          Login
+        </Button>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("SignUp")}
+        >
+          <Text>
+            Não tem uma conta?{" "}
+            <Text style={styles.createAccountText}>Crie uma</Text>
+          </Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 };
 

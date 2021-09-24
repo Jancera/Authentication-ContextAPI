@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Keyboard,
+  StyleSheet,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { Text, TextInput, Button } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import EmailInput from "../components/EmailInput";
@@ -14,28 +19,35 @@ const SignUp = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(true);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.createAccount}>Criar conta</Text>
+    <TouchableWithoutFeedback
+      touchSoundDisabled
+      onPress={() => Keyboard.dismiss()}
+    >
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.createAccount}>Criar conta</Text>
 
-      <NomeInput value={name} setValue={setName} />
-      <EmailInput value={email} setValue={setEmail} />
-      <PasswordInput
-        value={password}
-        setValue={setPassword}
-        showPassword={showPassword}
-        setShowPassword={setShowPassword}
-      />
+        <NomeInput value={name} setValue={setName} />
+        <EmailInput value={email} setValue={setEmail} />
+        <PasswordInput
+          value={password}
+          setValue={setPassword}
+          showPassword={showPassword}
+          setShowPassword={setShowPassword}
+        />
 
-      <Button style={styles.createButton} mode="contained">
-        Criar
-      </Button>
-      <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
-        <Text>
-          Já tem uma conta?{" "}
-          <Text style={styles.loginText}>Faça o login</Text>
-        </Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+        <Button style={styles.createButton} mode="contained">
+          Criar
+        </Button>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("SignIn")}
+        >
+          <Text>
+            Já tem uma conta?{" "}
+            <Text style={styles.loginText}>Faça o login</Text>
+          </Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 };
 
