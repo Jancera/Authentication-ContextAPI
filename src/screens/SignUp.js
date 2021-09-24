@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
-import {
-  Text,
-  TextInput,
-  Button,
-} from "react-native-paper";
+import { Text, TextInput, Button } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
+import EmailInput from "../components/EmailInput";
+import NomeInput from "../components/NomeInput";
+import PasswordInput from "../components/PasswordInput";
 
 const SignUp = ({ navigation }) => {
   const [name, setName] = useState("");
-  const [text, setText] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [showPassword, setShowPassword] = useState(true);
@@ -17,74 +16,20 @@ const SignUp = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.createAccount}>Criar conta</Text>
-      <TextInput
-        style={styles.textInput}
-        label="Nome"
-        mode="flat"
-        left={
-          <TextInput.Icon
-            name="account"
-            size={25}
-            color="black"
-          />
-        }
-        value={name}
-        onChangeText={(text) => setName(text)}
-      />
-      <TextInput
-        style={styles.textInput}
-        label="E-mail"
-        mode="flat"
-        left={
-          <TextInput.Icon
-            name="at"
-            size={25}
-            color="black"
-          />
-        }
-        value={text}
-        onChangeText={(text) => setText(text)}
-      />
 
-      <TextInput
-        style={styles.textInput}
-        label="Senha"
-        mode="flat"
-        secureTextEntry={showPassword}
-        left={
-          <TextInput.Icon
-            name="lock"
-            size={25}
-            color="black"
-          />
-        }
-        right={
-          showPassword ? (
-            <TextInput.Icon
-              name="eye"
-              size={25}
-              color="black"
-              onPress={() => setShowPassword(!showPassword)}
-            />
-          ) : (
-            <TextInput.Icon
-              name="eye-off"
-              size={25}
-              color="black"
-              onPress={() => setShowPassword(!showPassword)}
-            />
-          )
-        }
+      <NomeInput value={name} setValue={setName} />
+      <EmailInput value={email} setValue={setEmail} />
+      <PasswordInput
         value={password}
-        onChangeText={(text) => setPassword(text)}
+        setValue={setPassword}
+        showPassword={showPassword}
+        setShowPassword={setShowPassword}
       />
 
       <Button style={styles.createButton} mode="contained">
         Criar
       </Button>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("SignIn")}
-      >
+      <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
         <Text>
           Já tem uma conta?{" "}
           <Text style={styles.loginText}>Faça o login</Text>
@@ -103,9 +48,6 @@ const styles = StyleSheet.create({
   createAccount: {
     fontSize: 40,
     fontWeight: "bold",
-    marginBottom: 10,
-  },
-  textInput: {
     marginBottom: 10,
   },
   createButton: {
