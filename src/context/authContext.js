@@ -1,5 +1,7 @@
 import createContext from "./createContext";
 
+import api from "../api";
+
 const initialState = {};
 
 const reducer = (state, action) => {
@@ -15,8 +17,22 @@ const teste = (dispatch) => {
   };
 };
 
+const createUser = (dispatch) => {
+  return async (nome, email, senha) => {
+    try {
+      await api.post("/criar", {
+        nome: nome,
+        email: email,
+        senha: senha,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
 export const { Context, Provider } = createContext(
   reducer,
-  { teste },
-  initialState
+  { teste, createUser },
+  initialState,
 );

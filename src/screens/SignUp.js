@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Keyboard,
   StyleSheet,
@@ -11,7 +11,11 @@ import EmailInput from "../components/EmailInput";
 import NomeInput from "../components/NomeInput";
 import PasswordInput from "../components/PasswordInput";
 
+import { Context } from "../context/authContext";
+
 const SignUp = ({ navigation }) => {
+  const { createUser } = useContext(Context);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,9 +39,17 @@ const SignUp = ({ navigation }) => {
           setShowPassword={setShowPassword}
         />
 
-        <Button style={styles.createButton} mode="contained">
+        <Button
+          style={styles.createButton}
+          mode="contained"
+          onPress={() => {
+            createUser(name, email, password);
+            navigation.navigate("SignIn");
+          }}
+        >
           Criar
         </Button>
+
         <TouchableOpacity
           onPress={() => navigation.navigate("SignIn")}
         >
