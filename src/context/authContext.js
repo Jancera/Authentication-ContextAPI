@@ -1,4 +1,5 @@
 import createContext from "./createContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import api from "../api";
 
@@ -31,8 +32,26 @@ const createUser = (dispatch) => {
   };
 };
 
+const loginUser = (dispatch) => {
+  return async (email, senha) => {
+    try {
+      const data = await api.post("/login", {
+        email: email,
+        senha: senha,
+      });
+
+      await AsyncStorage.setItem("id", data.data.token);
+
+      const id = await AsyncStorage.getItem("id");
+      console.log(id);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+};
+
 export const { Context, Provider } = createContext(
   reducer,
-  { teste, createUser },
+  { teste, createUser, loginUser },
   initialState,
 );

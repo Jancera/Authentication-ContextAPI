@@ -13,7 +13,7 @@ import EmailInput from "../components/EmailInput";
 import PasswordInput from "../components/PasswordInput";
 
 const SignIn = ({ navigation }) => {
-  const { state, teste } = useContext(Context);
+  const { loginUser } = useContext(Context);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,7 +36,14 @@ const SignIn = ({ navigation }) => {
           setShowPassword={setShowPassword}
         />
 
-        <Button mode="contained" style={styles.loginButton}>
+        <Button
+          mode="contained"
+          style={styles.loginButton}
+          onPress={() => {
+            loginUser(email, password);
+            navigation.navigate("Home");
+          }}
+        >
           Login
         </Button>
         <TouchableOpacity
