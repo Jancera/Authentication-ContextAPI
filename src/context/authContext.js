@@ -40,10 +40,7 @@ const loginUser = (dispatch) => {
         senha: senha,
       });
 
-      await AsyncStorage.setItem("id", data.data.token);
-
-      const id = await AsyncStorage.getItem("id");
-      console.log(id);
+      await AsyncStorage.setItem("token", data.data.token);
     } catch (e) {
       console.log(e);
     }
