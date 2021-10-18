@@ -3,18 +3,22 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import api from "../api";
 
-const initialState = {};
+const initialState = {
+  loginError: false,
+};
 
 const reducer = (state, action) => {
   switch (action.type) {
+    case "loginError":
+      return { ...state, loginError: action.payload };
     default:
       return state;
   }
 };
 
-const teste = (dispatch) => {
-  return (args) => {
-    console.log(args);
+const setLoginError = (dispatch) => {
+  return (boolean) => {
+    dispatch({ type: "loginError", payload: boolean });
   };
 };
 
@@ -27,7 +31,7 @@ const createUser = (dispatch) => {
         senha: senha,
       });
     } catch (e) {
-      console.log(e);
+      dispatch({ type: "loginError", payload: true });
     }
   };
 };
@@ -42,13 +46,13 @@ const loginUser = (dispatch) => {
 
       await AsyncStorage.setItem("token", data.data.token);
     } catch (e) {
-      console.log(e);
+      dispatch({ type: "loginError", payload: true });
     }
   };
 };
 
 export const { Context, Provider } = createContext(
   reducer,
-  { teste, createUser, loginUser },
+  { setLoginError, createUser, loginUser },
   initialState,
 );

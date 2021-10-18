@@ -5,7 +5,12 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
-import { Text, TextInput, Button } from "react-native-paper";
+import {
+  Text,
+  TextInput,
+  Button,
+  HelperText,
+} from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import EmailInput from "../components/EmailInput";
 import NomeInput from "../components/NomeInput";
@@ -14,7 +19,7 @@ import PasswordInput from "../components/PasswordInput";
 import { Context } from "../context/authContext";
 
 const SignUp = ({ navigation }) => {
-  const { createUser } = useContext(Context);
+  const { state, createUser, setLoginError } = useContext(Context);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -43,15 +48,31 @@ const SignUp = ({ navigation }) => {
           style={styles.createButton}
           mode="contained"
           onPress={() => {
+            if (name || email || password === "") {
+              setLoginError(true);
+              return;
+            }
             createUser(name, email, password);
             navigation.navigate("SignIn");
           }}
         >
           Criar
         </Button>
+        {state.loginError ? (
+          <HelperText
+            style={{ alignSelf: "center" }}
+            type="error"
+            visible={state.loginError}
+          >
+            Create Error
+          </HelperText>
+        ) : null}
 
         <TouchableOpacity
-          onPress={() => navigation.navigate("SignIn")}
+          onPress={() => {
+            setLoginError(false);
+            navigation.navigate("SignIn");
+          }}
         >
           <Text>
             Já tem uma conta?{" "}

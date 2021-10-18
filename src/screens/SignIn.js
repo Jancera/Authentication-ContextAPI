@@ -7,13 +7,18 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Button, Text, TextInput } from "react-native-paper";
+import {
+  Button,
+  HelperText,
+  Text,
+  TextInput,
+} from "react-native-paper";
 import { Context } from "../context/authContext";
 import EmailInput from "../components/EmailInput";
 import PasswordInput from "../components/PasswordInput";
 
 const SignIn = ({ navigation }) => {
-  const { loginUser } = useContext(Context);
+  const { state, loginUser, setLoginError } = useContext(Context);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,14 +45,30 @@ const SignIn = ({ navigation }) => {
           mode="contained"
           style={styles.loginButton}
           onPress={() => {
+            if (email || password === "") {
+              setLoginError(true);
+              return;
+            }
             loginUser(email, password);
             navigation.navigate("Home");
           }}
         >
           Login
         </Button>
+        {state.loginError ? (
+          <HelperText
+            style={{ alignSelf: "center" }}
+            type="error"
+            visible={state.loginError}
+          >
+            Login Error
+          </HelperText>
+        ) : null}
         <TouchableOpacity
-          onPress={() => navigation.navigate("SignUp")}
+          onPress={() => {
+            setLoginError(false);
+            navigation.navigate("SignUp");
+          }}
         >
           <Text>
             Não tem uma conta?{" "}
