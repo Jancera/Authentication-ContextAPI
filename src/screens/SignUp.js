@@ -48,7 +48,7 @@ const SignUp = ({ navigation }) => {
           style={styles.createButton}
           mode="contained"
           onPress={() => {
-            if (name || email || password === "") {
+            if ((name || email || password) === "") {
               setLoginError(true);
               return;
             }

@@ -45,7 +45,7 @@ const SignIn = ({ navigation }) => {
           mode="contained"
           style={styles.loginButton}
           onPress={() => {
-            if (email || password === "") {
+            if ((email || password) === "") {
               setLoginError(true);
               return;
             }
