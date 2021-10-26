@@ -51,6 +51,8 @@ const SignIn = ({ navigation }) => {
             }
             loginUser(email, password);
             navigation.navigate("Home");
+            setEmail("");
+            setPassword("");
           }}
         >
           Login

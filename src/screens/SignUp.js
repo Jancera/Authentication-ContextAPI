@@ -54,6 +54,9 @@ const SignUp = ({ navigation }) => {
             }
             createUser(name, email, password);
             navigation.navigate("SignIn");
+            setName("");
+            setEmail("");
+            setPassword("");
           }}
         >
           Criar
