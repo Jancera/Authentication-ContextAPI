@@ -1,11 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/core";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { View, StyleSheet, ActivityIndicator } from "react-native";
 
 import api from "../api";
+import { Context } from "../context/authContext";
 
 const SignInToken = () => {
+  const { setIsLogged } = useContext(Context);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -18,7 +20,7 @@ const SignInToken = () => {
               Authorization: `Bearer ${token}`,
             },
           });
-          navigation.navigate("Home");
+          setIsLogged(true);
         } catch (e) {
           navigation.navigate("SignIn");
           console.log(e);

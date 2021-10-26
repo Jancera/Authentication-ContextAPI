@@ -18,7 +18,8 @@ import EmailInput from "../components/EmailInput";
 import PasswordInput from "../components/PasswordInput";
 
 const SignIn = ({ navigation }) => {
-  const { state, loginUser, setLoginError } = useContext(Context);
+  const { state, loginUser, setLoginError, setIsLogged } =
+    useContext(Context);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -50,7 +51,7 @@ const SignIn = ({ navigation }) => {
               return;
             }
             loginUser(email, password);
-            navigation.navigate("Home");
+            setIsLogged(true);
             setEmail("");
             setPassword("");
           }}

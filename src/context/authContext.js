@@ -5,12 +5,16 @@ import api from "../api";
 
 const initialState = {
   loginError: false,
+  isLogged: false,
+  isLoggedToken: false,
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case "loginError":
       return { ...state, loginError: action.payload };
+    case "isLogged":
+      return { ...state, isLogged: action.payload };
     default:
       return state;
   }
@@ -19,6 +23,11 @@ const reducer = (state, action) => {
 const setLoginError = (dispatch) => {
   return (boolean) => {
     dispatch({ type: "loginError", payload: boolean });
+  };
+};
+const setIsLogged = (dispatch) => {
+  return (boolean) => {
+    dispatch({ type: "isLogged", payload: boolean });
   };
 };
 
@@ -53,6 +62,6 @@ const loginUser = (dispatch) => {
 
 export const { Context, Provider } = createContext(
   reducer,
-  { setLoginError, createUser, loginUser },
+  { setLoginError, createUser, loginUser, setIsLogged },
   initialState,
 );

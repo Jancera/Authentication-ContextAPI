@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/core";
+import { Context } from "../context/authContext";
 
 const Home = () => {
+  const { setIsLogged } = useContext(Context);
   const navigation = useNavigation();
 
   return (
@@ -14,7 +16,7 @@ const Home = () => {
         title="LogOut"
         onPress={async () => {
           await AsyncStorage.removeItem("token");
-          navigation.navigate("SignIn");
+          setIsLogged(false);
         }}
       />
     </View>
